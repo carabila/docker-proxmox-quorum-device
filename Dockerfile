@@ -1,5 +1,6 @@
 FROM debian:buster-slim
 
+ENV PASSWD 'securepassword'
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y corosync-qnetd openssh-server
@@ -7,7 +8,7 @@ RUN apt-get install -y corosync-qnetd openssh-server
 ADD ./scripts/start.sh /start.sh
 
 # enable root password for ssh login
-RUN echo "root:1anca/" | chpasswd
+RUN echo "root:$PASSWD" | chpasswd
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
