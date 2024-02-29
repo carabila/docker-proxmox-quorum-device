@@ -1,9 +1,7 @@
 FROM debian:buster-slim
 
 ENV PASSWD 'securepassword'
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y corosync-qnetd openssh-server
+RUN apt update && apt upgrade -y && apt install -y corosync-qnetd openssh-server && apt autoremove -y && rm -rf /var/lib/apt/lists/*
 
 ADD ./scripts/start.sh /start.sh
 
